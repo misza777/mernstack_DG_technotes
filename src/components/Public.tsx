@@ -1,28 +1,38 @@
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
-const Public = () => {
-    const content = (
-        <section className="public">
-            <header>
-                <h1>Welcome to <span className="nowrap">Dan D. Repairs!</span></h1>
-            </header>
-            <main className="public__main">
-                <p>Located in Beautiful Downtown Foo City, Dan D. Repairs  provides a trained staff ready to meet your tech repair needs.</p>
-                <address className="public__addr">
-                    Dan D. Repairs<br />
-                    555 Foo Drive<br />
-                    Foo City, CA 12345<br />
-                    <a href="tel:+15555555555">(555) 555-5555</a>
-                </address>
-                <br />
-                <p>Owner: Dan Davidson</p>
-            </main>
-            <footer>
-                <Link to="/login">Employee Login</Link>
-            </footer>
-        </section>
-
-    )
-    return content
-}
-export default Public
+const Public: React.FC = () => {
+  const content: JSX.Element = (
+    <section className="public">
+      <header>
+        <h1>
+          Welcome to <span className="nowrap">Misza N. Repairs!</span>
+        </h1>
+      </header>
+      <main className="public__main">
+        <p>
+          Located in Beautiful Downtown Warsaw City.
+          <br />
+          <strong> Misza N. Repairs </strong> provides a trained staff ready to
+          meet your tech repair needs.
+          <br /> We can dismantle every car!
+        </p>
+        <address className="public__addr">
+          Misha N. Repairs
+          <br />
+          666 Mulholland Drive
+          <br />
+          Warsaw City, MZ 00-001
+          <br />
+          <a href="tel:+48">(666) 666-669</a>
+        </address>
+        <br />
+        <p>Owner: Misza Novakishvili</p>
+      </main>
+      <footer>
+        <Link to="/login">Employee Login</Link>
+      </footer>
+    </section>
+  );
+  return content;
+};
+export default Public;
