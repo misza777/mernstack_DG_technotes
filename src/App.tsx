@@ -16,7 +16,7 @@ import RequireAuth from "./features/auth/RequireAuth";
 import { ROLES } from "./config/roles";
 import useTitle from "./hooks/useTitle";
 
-function App() {
+function App(){
   useTitle("Miszak N. Repairs");
 
   return (

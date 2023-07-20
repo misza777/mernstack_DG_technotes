@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
@@ -8,14 +8,14 @@ import usePersist from "../../hooks/usePersist";
 import useTitle from "../../hooks/useTitle";
 import PulseLoader from "react-spinners/PulseLoader";
 
-const Login = () => {
+const Login: React.FC = () => {
   useTitle("Employee Login");
-  const userRef = useRef();
-  const errRef = useRef();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-  const [persist, setPersist] = usePersist(false);
+  const userRef = useRef<HTMLInputElement>(null);
+  const errRef = useRef<HTMLParagraphElement>(null);
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [errMsg, setErrMsg] = useState<string>("");
+  const [persist, setPersist] = usePersist<boolean>(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,14 +23,14 @@ const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
   //when component mounts, focus on username input
   useEffect(() => {
-    userRef.current.focus();
+    userRef.current?.focus();
   }, []);
 
   useEffect(() => {
     setErrMsg("");
   }, [username, password]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     //no page reload
     e.preventDefault();
     try {
@@ -39,7 +39,7 @@ const Login = () => {
       setUsername("");
       setPassword("");
       navigate("/dash");
-    } catch (err) {
+    } catch (err: any) {
       if (!err.status) {
         setErrMsg("No Server Response");
       } else if (err.status === 400) {
@@ -49,15 +49,17 @@ const Login = () => {
       } else {
         setErrMsg(err.data?.message);
       }
-      errRef.current.focus();
+      errRef.current?.focus();
     }
   };
 
-  const handleUserInput = (e) => setUsername(e.target.value);
-  const handlePwdInput = (e) => setPassword(e.target.value);
-  const handleToggle = () => setPersist((prev) => !prev);
+  const handleUserInput = (e: ChangeEvent<HTMLInputElement>) =>
+    setUsername(e.target.value);
+  const handlePwdInput = (e: ChangeEvent<HTMLInputElement>) =>
+    setPassword(e.target.value);
+  const handleToggle = () => setPersist((prev: boolean) => !prev);
 
-  const errClass = errMsg ? "errmsg" : "offscreen";
+  const errClass: string = errMsg ? "errmsg" : "offscreen";
 
   if (isLoading) return <PulseLoader color={"#FFF"} />;
 
